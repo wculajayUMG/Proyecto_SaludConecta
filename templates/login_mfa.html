@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="max-width: 420px; margin: 50px auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center;">
+    <h2>Verificación de seguridad</h2>
+    {% if enrollment %}
+        <p>Escanee este código QR con Google Authenticator o Microsoft Authenticator y luego introduzca el código de 6 dígitos.</p>
+        <img src="{{ qr_code }}" alt="Código QR de enrolamiento MFA" width="220" height="220">
+    {% else %}
+        <p>Introduzca el código de 6 dígitos de su aplicación autenticadora.</p>
+    {% endif %}
+    <form method="POST">
+        <label for="code">Código TOTP</label>
+        <input id="code" name="code" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" required autofocus>
+        <button type="submit" style="margin-top: 16px; padding: 10px 24px;">Verificar</button>
+    </form>
+</div>
+{% endblock %}

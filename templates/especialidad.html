@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Servicios Medicos</h2>
+<form method="POST">
+    {% if csrf_token %}<input type="hidden" name="csrf_token" value="{{ csrf_token }}">{% endif %}
+    <label>Servicio</label>
+    <input type="text" name="nombre" required>
+    
+    <label>Costo</label>
+    <input type="number" name="costo" required>
+
+    <label>Precio Venta</label>
+    <input type="number" name="precio" required>
+    
+    <button type="submit">Guardar Servicio</button>
+</form>
+{% endblock %}

@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="hero-container">
+ 
+
+    <div class="hero-main">
+        <div class="hero-text">
+            <h1>CLINICAL ANALYTICS</h1>
+            <p><strong>Propósito:</strong> Centralizar y analizar la información clínica operativa de forma eficiente.</p>
+
+            <h3>Nuestra Misión</h3>
+    <p>Proveer herramientas tecnológicas rápidas y seguras para el control del paciente y administración de recursos médicos.</p>
+    <h3>Nuestra Visión</h3>
+    <p>Convertirnos en el estándar de gestión hospitalaria respaldada por datos en tiempo real.</p>
+        </div>
+    </div>
+
+    <div class="waves-decoration">
+        <svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg">
+            <path fill="none" stroke="#a855f7" stroke-width="1.5" opacity="0.6" d="M0,160 C320,300 420,10 640,160 C860,310 960,10 1440,160">
+                <animate attributeName="d" dur="10s" repeatCount="indefinite" values="M0,160 C320,300 420,10 640,160 C860,310 960,10 1440,160; M0,160 C320,10 420,300 640,160 C860,10 960,310 1440,160; M0,160 C320,300 420,10 640,160 C860,310 960,10 1440,160" />
+            </path>
+            <path fill="none" stroke="#38bdf8" stroke-width="1.5" opacity="0.4" d="M0,190 C320,330 420,40 640,190 C860,340 960,40 1440,190">
+                <animate attributeName="d" dur="12s" repeatCount="indefinite" values="M0,190 C320,330 420,40 640,190 C860,340 960,40 1440,190; M0,190 C320,40 420,330 640,190 C860,40 960,330 1440,190; M0,190 C320,330 420,40 640,190 C860,340 960,40 1440,190" />
+            </path>
+        </svg>
+    </div>
+</div>
+
+<style>
+/* Contenedor principal con el degradado de la imagen */
+.hero-container {
+    max-width: 1200px;
+    height: 80vh;
+    margin: 0 auto;
+    background: radial-gradient(circle at 80% 20%, #0d243e 0%, #050a1f 100%);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Header */
+.hero-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 100px 50%;
+    z-index: 200;
+}
+.logo-wrap { display: flex; align-items: center; gap: 12px; }
+.crown-icon { background: #f59e0b; padding: 6px; border-radius: 6px; font-size: 1.1rem; }
+.logo-text { font-weight: 700; letter-spacing: 1.5px; font-size: 1.3rem; }
+
+.hero-nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 35px;
+    font-size: 0.85rem;
+    font-weight: 400;
+    opacity: 0.7;
+    transition: 0.3s;
+}
+.hero-nav a.active, .hero-nav a:hover { opacity: 1; }
+.btn-signup-hero {
+    border: 1.5px solid rgba(255,255,255,0.8);
+    padding: 7px 25px;
+    border-radius: 20px;
+}
+
+/* Texto Central */
+.hero-main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding-left: 10%;
+    z-index: 10;
+}
+.hero-text h1 {
+    font-size: 3rem;
+    margin: 0;
+    font-weight: 600;
+}
+.hero-text p {
+    max-width: 450px;
+    font-size: 1.1rem;
+    color: #cbd5e1;
+    margin: 20px 0 40px 0;
+    line-height: 1.6;
+}
+
+/* Botones Hero */
+.btn-hero-primary {
+    display: inline-block;
+    padding: 12px 35px;
+    border: 1.5px solid white;
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+.btn-hero-primary:hover { background: white; color: #050a1f; }
+.btn-hero-secondary {
+    color: #38bdf8;
+    margin-left: 20px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Decoración de ondas */
+.waves-decoration {
+    position: absolute;
+    bottom: -50px;
+    width: 100%;
+    height: 400px;
+    z-index: 1;
+    pointer-events: none;
+}
+</style>
+{% endblock %}

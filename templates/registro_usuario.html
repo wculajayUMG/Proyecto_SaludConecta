@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="max-width: 500px; margin: auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+    <h2 style="color: #0d243e; text-align: center;">Registrar Nuevo Colaborador</h2>
+    <hr>
+    <form method="POST">
+        {% if csrf_token %}<input type="hidden" name="csrf_token" value="{{ csrf_token }}">{% endif %}
+        <label>Nombre Completo</label>
+        <input type="text" name="nombre" placeholder="Ej. Juan Perez" required>
+
+        <label>Número de DPI</label>
+        <input type="text" name="dpi" placeholder="13 dígitos" required>
+
+        <div style="display: flex; gap: 10px;">
+            <div style="flex:1">
+                <label>Edad</label>
+                <input type="number" name="edad" required>
+            </div>
+            <div style="flex:1">
+                <label>Teléfono</label>
+                <input type="text" name="telefono" required>
+            </div>
+        </div>
+
+        <label>Nombre de Usuario</label>
+        <input type="text" name="username" placeholder="jperez" required>
+
+        <label>Contraseña (Min. 8 carac, 1 Mayús, 1 Especial)</label>
+        <input type="password" name="password" required>
+
+        <label>Rol del Usuario</label>
+        <select name="rol">
+            <option value="Usuario">Usuario Estándar</option>
+            <option value="Admin">Administrador</option>
+        </select>
+
+        <button type="submit" style="background: #0d243e; color: white; width: 100%; padding: 12px; border: none; border-radius: 5px; margin-top: 20px; cursor: pointer;">
+            Crear Cuenta de Acceso
+        </button>
+    </form>
+</div>
+{% endblock %}

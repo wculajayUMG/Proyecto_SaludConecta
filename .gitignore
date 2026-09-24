@@ -1,0 +1,42 @@
+# Secretos y configuración local
+.env
+.env.*
+!.env.example
+*.secret
+*.local
+
+# Entornos y cachés de Python
+venv/
+.venv/
+env/
+__pycache__/
+*.py[cod]
+*.pyd
+.pytest_cache/
+.mypy_cache/
+
+# Datos, logs y respaldos
+*.log
+backups/
+uploads/
+*.db
+*.sqlite
+*.sqlite3
+
+# Claves y certificados
+*.pem
+*.key
+*.crt
+*.cer
+
+# Artefactos de modelos o datos potencialmente sensibles
+*.pkl
+!modelo_espera.pkl
+*.pickle
+*.joblib
+
+# IDE y sistema operativo
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

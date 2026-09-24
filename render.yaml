@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: saludconecta
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 120 app:app
+    healthCheckPath: /healthz
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: DB_SSLMODE
+        value: "require"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: JWT_SECRET_KEY
+        generateValue: true
+      - key: MASTER_ENCRYPTION_KEY
+        sync: false
+      - key: JWT_ACCESS_TOKEN_EXPIRES_MINUTES
+        value: "30"
+      - key: JWT_COOKIE_SECURE
+        value: "true"
+      - key: FLASK_DEBUG
+        value: "false"
+      - key: MODEL_PATH
+        value: "modelo_espera.pkl"
+      - key: MFA_ISSUER_NAME
+        value: "SaludConecta"
+      - key: RATELIMIT_STORAGE_URI
+        sync: false

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Clínica Analytics</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    {% if usuario_jwt %}
+    <header>
+        <div class="logo">Clínica Analytics</div>
+        <nav>
+            <a href="{{ url_for('home') }}">Inicio</a>
+            <a href="{{ url_for('paciente') }}">Pacientes</a>
+            <a href="{{ url_for('doctor') }}">Doctores</a>
+            <a href="{{ url_for('especialidad') }}">Servicios Medicos</a>
+            <a href="{{ url_for('consulta') }}">Consultas</a>
+            <a href="{{ url_for('facturacion') }}">Facturación</a>
+            {% if rol_jwt == 'Admin' %}
+                <a href="{{ url_for('registro_usuario') }}">Gestionar Usuarios</a>
+                <a href="{{ url_for('kpis') }}">Dashboard KPIs</a>
+            {% endif %}
+            
+            <a href="{{ url_for('logout') }}" class="btn-logout">Salir ({{ usuario_jwt }})</a>
+        </nav>
+    </header>
+    {% endif %}
+
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-messages {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

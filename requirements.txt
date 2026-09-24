@@ -1,0 +1,13 @@
+Flask
+Flask-JWT-Extended
+Flask-SQLAlchemy
+argon2-cffi
+cryptography
+joblib
+psycopg2-binary
+PyJWT
+python-dotenv
+pyotp
+qrcode
+Flask-Limiter
+gunicorn

@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div style="margin-bottom: 20px;">
+    <h2>Registro de Nueva Consulta Médica</h2>
+    <p>Complete los datos de la visita. Los campos marcados con * son obligatorios.</p>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 30px;">
+    
+    <div style="flex: 1; min-width: 350px; background: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <form method="POST">
+            {% if csrf_token %}<input type="hidden" name="csrf_token" value="{{ csrf_token }}">{% endif %}
+            
+            <label style="display: block; margin-bottom: 5px; font-weight: bold;">Paciente *</label>
+            <select name="id_paciente" required style="width: 100%; padding: 8px; margin-bottom: 15px; border-radius: 4px; border: 1px solid #ccc;">
+                <option value="">-- Seleccione un Paciente --</option>
+                {% for p in pacientes %}
+                    <option value="{{ p[0] }}">{{ p[1] }} {{ p[2] }}</option>
+                {% endfor %}
+            </select>
+            
+            <label style="display: block; margin-bottom: 5px; font-weight: bold;">Doctor Asignado *</label>
+            <select name="id_doctor" required style="width: 100%; padding: 8px; margin-bottom: 15px; border-radius: 4px; border: 1px solid #ccc;">
+                <option value="">-- Seleccione un Doctor --</option>
+                {% for d in doctores %}
+                    <option value="{{ d[0] }}">{{ d[1] }}</option>
+                {% endfor %}
+            </select>
+
+            <label style="display: block; margin-bottom: 5px; font-weight: bold;">Servicio / Especialidad *</label>
+            <select name="id_servicio" required style="width: 100%; padding: 8px; margin-bottom: 15px; border-radius: 4px; border: 1px solid #ccc;">
+                <option value="">-- Seleccione el Servicio --</option>
+                {% for s in servicios %}
+                    <option value="{{ s[0] }}">{{ s[1] }}</option>
+                {% endfor %}
+            </select>
+
+            <label style="display: block; margin-bottom: 5px; font-weight: bold;">Diagnóstico Preliminar *</label>
+            <input type="text" name="diagnostico" placeholder="Diagnóstico" required style="width: 100%; padding: 8px; margin-bottom: 15px; border-radius: 4px; border: 1px solid #ccc; box-sizing: border-box;">
+
+            <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
+
+            <label style="display: block; margin-bottom: 5px; font-weight: bold;">Fecha de Consulta *</label>
+            <input type="date" name="fecha_consulta" required style="width: 100%; padding: 8px; margin-bottom: 15px; border-radius: 4px; border: 1px solid #ccc; box-sizing: border-box;">
+            
+            <div style="display: flex; gap: 15px; margin-bottom: 15px;">
+                <div style="flex: 1;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: bold;">Hora de Llegada *</label>
+                    <input type="time" name="hora_llegada" required style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc; box-sizing: border-box;">
+                </div>
+                <div style="flex: 1;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: bold;">Hora de Atención</label>
+                    <input type="time" name="hora_atencion" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc; box-sizing: border-box;">
+                </div>
+            </div>
+
+            <label style="display: block; margin-bottom: 5px; font-weight: bold;">Estado de la Visita *</label>
+            <select name="estado_visita" required style="width: 100%; padding: 8px; margin-bottom: 20px; border-radius: 4px; border: 1px solid #ccc;">
+                <option value="Programada">Programada</option>
+                <option value="En Espera">En Espera</option>
+                <option value="En Curso">En Curso</option>
+                <option value="Finalizada">Finalizada</option>
+                <option value="Cancelada">Cancelada</option>
+            </select>
+            
+            <div style="display: flex; gap: 10px;">
+                <button type="submit" name="btn_predecir" formnovalidate style="background-color: #8b5cf6; color: white; border: none; padding: 12px; border-radius: 5px; cursor: pointer; flex: 1; font-weight: bold;">
+                    ✨ Consultar IA
+                </button>
+                <button type="submit" name="btn_guardar" style="background-color: #10b981; color: white; border: none; padding: 12px; border-radius: 5px; cursor: pointer; flex: 1; font-weight: bold;">
+                    💾 Registrar Consulta
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div style="flex: 1; min-width: 300px; background: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%); padding: 30px; border-radius: 8px; border: 1px solid #14b8a6; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        
+        {% if prediccion_ia is not none %}
+            <div style="font-size: 4rem; margin-bottom: 10px;">⏳</div>
+            <h3 style="color: #0f766e; margin-bottom: 10px; font-size: 1.5rem;">Tiempo Estimado</h3>
+            <div style="font-size: 5rem; font-weight: bold; color: #0d9488; line-height: 1;">
+                {{ prediccion_ia }} <span style="font-size: 1.5rem; font-weight: normal;">min</span>
+            </div>
+            <p style="color: #115e59; margin-top: 15px; font-size: 0.95rem;">
+                Basado en el historial del doctor y el nivel de demanda del servicio seleccionado.
+            </p>
+            
+            <div style="width: 100%; background: #99f6e4; height: 8px; border-radius: 4px; margin-top: 25px; overflow: hidden;">
+                <div style="width: {% if prediccion_ia > 100 %}100{% else %}{{ prediccion_ia }}{% endif %}%; background: #0d9488; height: 100%; border-radius: 4px;"></div>
+            </div>
+        {% else %}
+            <div style="opacity: 0.6;">
+                <div style="font-size: 4rem; margin-bottom: 10px;">🤖</div>
+                <h3 style="color: #334155; margin-bottom: 10px;">Asistente Predictivo</h3>
+                <p style="color: #475569; line-height: 1.5;">
+                    Seleccione un Doctor y un Servicio, luego presione <strong>Consultar IA</strong> para calcular el tiempo de espera estimado para el paciente.
+                </p>
+            </div>
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock %}

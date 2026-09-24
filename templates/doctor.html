@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Registro de Doctor</h2>
+<form method="POST">
+    {% if csrf_token %}<input type="hidden" name="csrf_token" value="{{ csrf_token }}">{% endif %}
+    <label>Nombre Completo</label>
+    <input type="text" name="nombre" required>
+    
+    <label>Especialidad</label>
+    <input type="text" name="especialidad" required>
+
+    
+    <label>Estado</label>
+    <input type="text" name="estado" required>
+    
+    <button type="submit">Guardar Doctor</button>
+</form>
+{% endblock %}

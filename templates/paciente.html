@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Registro de Paciente Nuevo</h2>
+<form method="POST">
+    {% if csrf_token %}<input type="hidden" name="csrf_token" value="{{ csrf_token }}">{% endif %}
+    <label>Nombre</label>
+    <input type="text" name="nombre" required>
+
+    <label>Apellido</label>
+    <input type="text" name="apellido" required>
+    
+    <label>Fecha de Nacimiento</label>
+    <input type="date" name="fechaNacimiento" required>
+    
+    <label>Género</label>
+    <select name="genero" required>
+        <option value="M">Masculino</option>
+        <option value="F">Femenino</option>
+    </select>
+    
+    <label>Teléfono</label>
+    <input type="text" name="telefono" required>
+    
+    <button type="submit">Guardar Paciente</button>
+</form>
+{% endblock %}
