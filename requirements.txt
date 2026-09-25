@@ -4,6 +4,7 @@ Flask-SQLAlchemy
 argon2-cffi
 cryptography
 joblib
+scikit-learn
 psycopg2-binary
 PyJWT
 python-dotenv

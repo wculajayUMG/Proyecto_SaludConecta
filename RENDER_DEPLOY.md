@@ -19,6 +19,12 @@ También se puede crear un Web Service manualmente con:
 - Start command: `gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 120 app:app`
 - Health check path: `/healthz`
 
+El proyecto declara `scikit-learn` porque es necesario para cargar
+`modelo_espera.pkl`. El Blueprint fija `PYTHON_VERSION=3.12.8`, una versión
+estable y compatible con las dependencias científicas y el modelo serializado.
+Si creas el servicio manualmente, agrega también esa variable de entorno antes
+del primer despliegue.
+
 ## 3. Variables obligatorias
 
 Configura estas variables en Render, nunca en el repositorio:
@@ -45,3 +51,10 @@ esquema requerido.
 Después del primer despliegue, cada usuario completa el enrolamiento TOTP
 escaneando el QR mostrado durante el primer login. Conserva la clave maestra y
 realiza respaldos cifrados con `scripts/encrypted_backup.py`.
+
+## 6. Después de corregir un despliegue fallido
+
+Haz un **Manual Deploy > Deploy latest commit** para que Render vuelva a
+instalar `scikit-learn`. Revisa primero que el build muestre la instalación de
+`scikit-learn` y luego valida `https://TU-DOMINIO.onrender.com/healthz`, que debe
+responder con `{"status":"ok"}`.

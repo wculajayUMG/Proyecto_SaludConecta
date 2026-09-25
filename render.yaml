@@ -9,6 +9,8 @@ services:
     envVars:
       - key: DATABASE_URL
         sync: false
+      - key: PYTHON_VERSION
+        value: "3.12.8"
       - key: DB_SSLMODE
         value: "require"
       - key: SECRET_KEY
